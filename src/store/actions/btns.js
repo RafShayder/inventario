@@ -14,6 +14,7 @@ export const rutajson=defineStore('rutajson', () => {
   const data=[
     { name: 'Home',path:'home', icon: 'mdi-lan-connect'},
     { name: 'Inventario',path:'inventario', icon: 'mdi-lan-connect'},
+    { name: 'AlmacenTups',path:'almacen', icon: 'mdi-lan-connect'},
    ]
   return {data};
 })

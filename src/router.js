@@ -30,6 +30,11 @@ const routes = [{
             path: 'inventario',
             component: () => import('./view/vInventario.vue'),
         },
+        {
+            name: 'AlmacenTups',
+            path: 'almacen',
+            component: () => import('./view/vAlmacen.vue'),
+        },
              
     ]
 }

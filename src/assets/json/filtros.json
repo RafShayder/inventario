@@ -1,0 +1,38 @@
+{
+    "sitio":{
+        "data":[
+            {"cod":"LI00000","value":"SIN SITIO"},
+            {"cod":"LI00451","value":"03 DE FEBRERO"},
+            {"cod":"LI00809","value":"1 DE MAYO VES"},
+            {"cod":"IC00125","value":"11 DE SEPTIEMBRE"},
+            {"cod":"PI00012","value":"13 DE DICIEMBRE"},
+            {"cod":"LO00150","value":"13_DE_FEBRERO"},
+            {"cod":"AR00018","value":"15 ENERO"},
+            {"cod":"LI00884","value":"22 DE AGOSTO"},
+            {"cod":"LI00753","value":"25 MARZO"},
+            {"cod":"AY00235","value":"26 ENERO"},
+            {"cod":"LI00865","value":"26 LA PAZ"},
+            {"cod":"LL00047","value":"26 MARZO"}
+        ],
+        "icono":"",
+        "seleccion":{ "cod": "LI00000", "value": "SIN SITIO" }
+    },
+    "prueba":{
+        "data":[
+            {"cod":"LI00000","value":"SIN SITIO"},
+            {"cod":"LI00451","value":"03 DE FEBRERO"},
+            {"cod":"LI00809","value":"1 DE MAYO VES"},
+            {"cod":"IC00125","value":"11 DE SEPTIEMBRE"},
+            {"cod":"PI00012","value":"13 DE DICIEMBRE"},
+            {"cod":"LO00150","value":"13_DE_FEBRERO"},
+            {"cod":"AR00018","value":"15 ENERO"},
+            {"cod":"LI00884","value":"22 DE AGOSTO"},
+            {"cod":"LI00753","value":"25 MARZO"},
+            {"cod":"AY00235","value":"26 ENERO"},
+            {"cod":"LI00865","value":"26 LA PAZ"},
+            {"cod":"LL00047","value":"26 MARZO"}
+        ],
+        "icono":"",
+        "seleccion":{ "cod": "LI00000", "value": "SIN SITIO" }
+    }
+}

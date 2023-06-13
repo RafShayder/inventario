@@ -26,7 +26,6 @@ const m = getters();
 await m.obtenerDatos();
 const data = datos;
 export default {
-
     data() {
         return {
             test:m.datos,

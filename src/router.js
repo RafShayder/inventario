@@ -35,6 +35,11 @@ const routes = [{
             path: 'almacen',
             component: () => import('./view/vAlmacen.vue'),
         },
+        {
+            name: 'acctrans',
+            path: 'acctrans',
+            component: () => import('./view/vAcctrans.vue'),
+        },
              
     ]
 }

@@ -32,7 +32,8 @@
   .gradienteblue{
     margin-bottom: 10px;
     background: #ffffff;
-  background: linear-gradient(90deg, #87c1f9 30%, #458cf6 70%);
+    background-image: linear-gradient(260deg, #c24bee 0, #a243f0 25%, #783cf2 50%, #3239f4 75%, #0038f5 100%);
+
   }
   </style>
     

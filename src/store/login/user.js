@@ -35,8 +35,8 @@ export const useAuthStore = defineStore('auth', {
                 // Manejar el error de autenticación
                 console.error('Error de inicio de sesión:', error);
                 this.alert.color = "red";
-                this.alert.titulo = "Credenciales erroneas";
-                this.alert.cuerpo = "Verifica tu usuario y contraseña";
+                this.alert.titulo = "Credenciales";
+                this.alert.cuerpo = "Verifica tu usuario|contraseña";
 
             }
         },

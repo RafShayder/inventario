@@ -1,6 +1,6 @@
 
 <template>
-    <v-sheet class="mx-auto pa-8 pb-8 mt-10" elevation="8" max-width="448" rounded="lg">
+    <v-sheet class="mx-auto pa-8 pb-8 mt-10" elevation="8" max-width="558" rounded="lg">
         <v-card class="mx-auto mb-3 " elevation="0" subtitle="Telefonica del Perú">
             <template v-slot:prepend>
                 <v-icon icon="mdi-chart-donut" color="blue-accent-4" size="x-large"></v-icon>
@@ -16,11 +16,13 @@
                 :type="visible ? 'text' : 'password'" label="Contraseña" prepend-inner-icon="mdi-lock-check" variant="solo"
                 @click:append-inner="visible = !visible" v-model="pass" clearable :rules="[rules.required]">
             </v-text-field>
-            <v-btn type="submit" color="blue" block class="mb-8" size="large" :disabled="loading" :loading="loading"
-                @click="loading = !loading">Entrar</v-btn>
+            <v-btn type="submit" color="blue" block class="mb-8" size="large" :disabled="loading"
+                @click="login()">Entrar</v-btn>
         </v-form>
         <a class="text-caption text-decoration-none text-blue" href="#" rel="noopener noreferrer" target="_blank">
-            Olvidaste tu contraseña?</a>
+            Olvidaste tu contraseña? </a><br><br>
+        <v-progress-circular v-if="loading"  :size="70" width="11" color="red" class="v-progress-linear"
+            indeterminate></v-progress-circular>
         <v-card class="mt-5">
             <v-alert type="success" :title="alert.titulo" v-model="alert.bol" border="start" variant="tonal" closable
                 :color="alert.color" :text="alert.cuerpo">
@@ -49,21 +51,10 @@ export default {
             },
         }
     },
-    watch: {
-        loading(val) {
-            if (!val) return
-            {
-                setTimeout(() => {
-                    this.loading = false; this.login();
-                }, 1200);
 
-
-            }
-        },
-    },
     methods: {
         login() {
-            this.alert.bol = true;
+            this.loading = true;
             const authStore = useAuthStore();
             // Llamar a la acción de inicio de sesión del store de autenticación
             authStore.login({
@@ -73,10 +64,18 @@ export default {
                 this.alert.titulo = authStore.alert.titulo;
                 this.alert.cuerpo = authStore.alert.cuerpo;
                 this.alert.color = authStore.alert.color;
+                this.loading = false;
+                this.alert.bol = true;
             });
 
         },
     }
 }
-
 </script>
+<style scoped>
+ .v-progress-linear {
+    display: block;
+    width: 100px;
+    margin: 0 auto;
+}
+</style>

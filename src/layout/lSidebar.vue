@@ -2,16 +2,21 @@
     <v-navigation-drawer v-model="store.valor" fixed temporary width="300">
         <v-container>
             <v-icon icon="mdi-collage" class='colortexto'></v-icon>
-            <span class=" mx-2 font-weight-black colortexto" > OPCIONES</span>
+            <span class=" mx-2 font-weight-black colortexto"> OPCIONES</span>
         </v-container>
         <v-divider class="text-blue"></v-divider>
         <v-container class="mx-auto" max-width="300">
-            <v-list nav>
-                <v-list-item v-for="(item, i) in items" :key="i" :value="item" :title="item.name" :to="item.path">
-                </v-list-item>
+            <v-list nav v-for="valor, key in items2" :key="key">
+                <v-list-group :value="key">
+                    <template v-slot:activator="{ props }">
+                        <v-list-item v-bind="props" :title="key"></v-list-item>
+                    </template>
+                    <v-list-item v-for="val in valor.data" :key="val.path" :title="val.name"
+                        :prepend-icon="val.icon" ></v-list-item>
+                </v-list-group>
             </v-list>
         </v-container>
-        
+
         <v-container class="lgoutcontainer">
             <v-btn color="red" class="ma-4 lgout">
                 <span class="px-5">Salir</span>
@@ -26,10 +31,10 @@ export default {
 };
 </script>
 <script setup>
-import { rutajson,estadoSidebar,sidebardata } from '../store/actions/btns.js';
+import { rutajson, estadoSidebar, sidebardata } from '../store/actions/btns.js';
 const store = estadoSidebar();
 const items = rutajson().data;
-const items2=sidebardata().data;
+const items2 = sidebardata().data;
 </script>
 <style scoped>
 .lgoutcontainer {
@@ -42,7 +47,8 @@ const items2=sidebardata().data;
     bottom: 0;
 
 }
-.colortexto{
+
+.colortexto {
     color: #6A68E5;
-  }
+}
 </style>

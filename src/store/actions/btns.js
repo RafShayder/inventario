@@ -41,5 +41,5 @@ export const sidebardata=defineStore('sidebardata', () => {
       ],
     }
   }
-  return data;
+  return {data};
 })

@@ -22,6 +22,8 @@
 <script setup>
 import { getacctrans } from '../store/getters/acctransdata.js'
 import { VDataTable } from 'vuetify/labs/VDataTable'
+//const id=this.$route.params.id;
+//console.log(id);
 const m = getacctrans();
 m.getdata()
 const itemsPerPage = 200;

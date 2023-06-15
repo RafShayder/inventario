@@ -21,23 +21,23 @@ const routes = [{
     children: [
         // Components
         {
-            name: 'Home',
+            name: 'home',
             path: 'home',
             component: () => import('./view/vHome.vue'),
         },
         {
-            name: 'Inventario',
+            name: 'inventario',
             path: 'inventario',
             component: () => import('./view/vInventario.vue'),
         },
         {
-            name: 'AlmacenTups',
+            name: 'almacen',
             path: 'almacen',
             component: () => import('./view/vAlmacen.vue'),
         },
         {
             name: 'acctrans',
-            path: 'acctrans',
+            path: 'acctrans/:id?',
             component: () => import('./view/vAcctrans.vue'),
         },
              

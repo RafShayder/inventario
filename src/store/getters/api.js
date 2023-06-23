@@ -11,5 +11,5 @@ export default {
     },
     getdataacctrans(config) {
         return apiClient.get('api/acctrans', config);
-    }
+    },
 };

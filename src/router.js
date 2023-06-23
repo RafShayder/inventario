@@ -38,9 +38,34 @@ const routes = [{
         {
             name: 'acctrans',
             path: 'acctrans/:id?',
-            component: () => import('./view/vAcctrans.vue'),
+            //component: () => import('./view/lambayeque/vAcctrans.vue'),
+            component: () => import('./view/lambayeque/vInventario.vue'),
         },
-             
+        {
+            name: 'pronatel',
+            path: 'pronatel/:id?',
+            component: () => import('./view/lambayeque/vPronatel.vue'),
+        },
+        {
+            name: 'tdemanda',
+            path: 'tdemanda/:id?',
+            component: () => import('./view/lambayeque/vTdemanda.vue'),
+        },  
+        {
+            name: 'almacen',
+            path: 'almacen/:id?',
+            component: () => import('./view/tups/vAlmacen.vue'),
+        }, 
+        {
+            name: 'planta',
+            path: 'planta/:id?',
+            component: () => import('./view/tups/vPlanta.vue'),
+        }, 
+        {
+            name: 'grupoequipo',
+            path: 'grupoequipo/:id?',
+            component: () => import('./view/grupoequipo/vGrupoequipos.vue'),
+        },     
     ]
 }
 

@@ -5,7 +5,7 @@ export const getacctrans = defineStore('getacctrans', {
     state: () => ({
         token: null,
         loading: false,
-        datos: null
+        datos: null,
     }),
     actions: {
         async getdata() {
@@ -23,4 +23,28 @@ export const getacctrans = defineStore('getacctrans', {
             this.loading = true;
         },
     },
-})
+});
+
+export const inventario = defineStore('inventario', {
+    state: () => ({
+        token: null,
+        loading: false,
+        datos: null
+    }),
+    actions: {
+         async getdata() {
+            try {
+                const userStore = useAuthStore();
+                const token = userStore.token;
+                this.datos = await api.getdataacctrans({
+                    headers: {
+                        'Authorization': token
+                    }
+                });
+            } catch (error) {
+                return error
+            }
+            this.loading = true;
+        },
+    },
+});

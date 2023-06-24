@@ -4,7 +4,8 @@
             <v-row no-gutters>
                 <v-col cols="12" sm="3" class="ma-2">
                     <v-text-field append-inner-icon="mdi-magnify" label="Equipo" variant="outlined" color="primary"
-                        clearable v-model="search.qryEquipo" @click:clear="searchEquipo"  @click:append-inner="searchEquipo" ></v-text-field>
+                        clearable v-model="search.qryEquipo" @click:clear="searchEquipo"
+                        @click:append-inner="searchEquipo"></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="3" class="ma-2">
                     <v-text-field append-inner-icon="mdi-magnify" label="Nombre" variant="outlined" color="primary"
@@ -12,7 +13,7 @@
                 </v-col>
                 <v-col cols="12" sm="3" class="ma-2">
                     <v-text-field append-inner-icon="mdi-magnify" label="Sitio" variant="outlined" color="primary" clearable
-                        v-model="search.qrySitio"  @click:append-inner="searchSitio"></v-text-field>
+                        v-model="search.qrySitio" @click:append-inner="searchSitio"></v-text-field>
                 </v-col>
             </v-row>
 
@@ -23,22 +24,23 @@
             </v-sheet>
         </v-container>
         <v-container v-else fluid>
-            <v-data-table v-model:items-per-page="itemsPerPage" :headers="headers" :items="filteredItems">
+            <v-data-table class="elevation-4" v-model:items-per-page="itemsPerPage" :headers="headers"
+                :items="filteredItems">
                 <template v-slot:items="props">
-                    <td class="text-xs-left">{{ props.item.equipo }}</td>
-                    <td class="text-xs-left">{{ props.item.nombre }}</td>
-                    <td class="text-xs-left">{{ props.item.serie }}</td>
-                    <td class="text-xs-left">{{ props.item.color }}</td>
-                    <td class="text-xs-left">{{ props.item.estado }}</td>
-                    <td class="text-xs-left">{{ props.item.cantidad }}</td>
-                    <td class="text-xs-left">{{ props.item.fecha }}</td>
-                    <td class="text-xs-left">{{ props.item.equipamiento }}</td>
-                    <td class="text-xs-left">{{ props.item.modelo }}</td>
-                    <td class="text-xs-left">{{ props.item.codsitio }}</td>
-                    <td class="text-xs-left">{{ props.item.sitio }}</td>
+                    <td>{{ props.item.equipo }}</td>
+                    <td>{{ props.item.nombre }}</td>
+                    <td>{{ props.item.serie }}</td>
+                    <td>{{ props.item.color }}</td>
+                    <td>{{ props.item.estado }}</td>
+                    <td>{{ props.item.cantidad }}</td>
+                    <td>{{ props.item.fecha }}</td>
+                    <td>{{ props.item.equipamiento }}</td>
+                    <td>{{ props.item.modelo }}</td>
+                    <td>{{ props.item.codsitio }}</td>
+                    <td>{{ props.item.sitio }}</td>
                 </template>
                 <template v-slot:[`item.actions`]="{ item }">
-                    <v-icon size="small" class="me-2" icon="mdi-pencil" @click="editItem(item.raw)">
+                    <v-icon size="small" class="me-2" color="#00C853" icon="mdi-pencil" @click="editItem(item.raw)">
                     </v-icon>
                 </template>
                 <template v-slot:no-results>
@@ -46,8 +48,26 @@
                         Found no results.
                     </v-alert>
                 </template>
-
             </v-data-table>
+
+            <v-dialog v-model="dialog" max-width="1000">
+                <v-card>
+                    <v-card-text>
+                        <v-container fluid>
+                            <v-row  no-gutters>
+                                <template v-for="v, key in editor" :key="key">
+                                    <cEditing :label="key" :valor="v">
+                                    </cEditing>
+                                </template>
+                            </v-row>
+                        </v-container>
+                        <v-btn @click="prueba" color="green">
+                            clcik me 
+                        </v-btn>
+                    </v-card-text>
+                </v-card>
+
+            </v-dialog>
         </v-container>
     </v-main>
 </template>
@@ -60,12 +80,18 @@ m2.getdata()
 
 <script>
 import { inventario } from '../../store/getters/acctransdata';
+import cEditing from '../../components/cEditing.vue'
 const m = inventario();
 export default {
+    components: {
+        cEditing
+    },
     data: () => ({
+        dialog: false,
         loading: false,
+        editor: {},
         data: [],
-        itemsPerPage: 200,
+        itemsPerPage: 15,
         headers: [
             {
                 align: 'start',
@@ -96,31 +122,35 @@ export default {
             qrySitio: "",
         },
     }),
-    async created(){
+    async created() {
         await m.getdata()
         this.data = m.datos.data.data
         this.loading = m.loading
     },
-  
+
     methods: {
         editItem(item) {
-            console.log(item)
+            this.dialog = true;
+            this.editor = item
         },
-        searchEquipo: function() {
-            if(this.search.qryEquipo==null){
-                this.search.qryEquipo=''
+        prueba: function (){
+            console.log(this.editor)
+        },
+        searchEquipo: function () {
+            if (this.search.qryEquipo == null) {
+                this.search.qryEquipo = ''
             }
             this.filterQry.qryEquipo = this.search.qryEquipo;
-        }, 
-        searchNombre: function(){
-            if(this.search.qryEquipo==null){
-                this.search.qryNombre=''
+        },
+        searchNombre: function () {
+            if (this.search.qryEquipo == null) {
+                this.search.qryNombre = ''
             }
             this.filterQry.qryNombre = this.search.qryNombre;
         },
-        searchSitio: function(){
-            if(this.search.qryEquipo==null){
-                this.search.qrySitio=''
+        searchSitio: function () {
+            if (this.search.qryEquipo == null) {
+                this.search.qrySitio = ''
             }
             this.filterQry.qrySitio = this.search.qrySitio;
         },

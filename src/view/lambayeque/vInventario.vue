@@ -55,9 +55,8 @@
                     <v-card-text>
                         <v-container fluid>
                             <v-row  no-gutters>
-                                <template v-for="v, key in editor" :key="key">
-                                    <cEditing :label="key" :valor="v">
-                                    </cEditing>
+                                <template v-for="(v, key) in editor" v-bind:key="key">
+                                    <cEditing   v-model="editor[key]" :label="key" ></cEditing>
                                 </template>
                             </v-row>
                         </v-container>
@@ -75,7 +74,6 @@
 import { VDataTable } from 'vuetify/labs/VDataTable'
 import { inventario } from '../../store/getters/acctransdata';
 const m2 = inventario();
-m2.getdata()
 </script>
 
 <script>
@@ -89,7 +87,18 @@ export default {
     data: () => ({
         dialog: false,
         loading: false,
-        editor: {},
+        editor: {
+            equipo:'',
+            nombre:'',
+            serie:'',
+            color:'',
+            estado:'',
+            cantidad:null,
+            fecha:'',
+            equipamiento:'',
+            modelo:'',
+            codsitio:'',
+        },
         data: [],
         itemsPerPage: 15,
         headers: [
@@ -131,7 +140,7 @@ export default {
     methods: {
         editItem(item) {
             this.dialog = true;
-            this.editor = item
+            this.editor = Object.assign({}, item)
         },
         prueba: function (){
             console.log(this.editor)

@@ -1,24 +1,10 @@
 <template>
     <v-col cols="3" class="ma-2">
-        <label class="text-blue">{{ label }}</label>
-        <v-text-field :modelValue="valor"  variant="solo" @update:modelValue="valor = $event">
+        <v-text-field :modelValue="modelValue" :label="label" variant="solo"  @input="$emit('update:modelValue', $event.target.value)">
         </v-text-field>
     </v-col>
 </template>
-
-
 <script setup>
-defineProps(
-    {
-        label: {
-            type: String,
-            required: true
-        },
-        valor: {
-            required: true
-        },
-
-
-    }
-);
+defineProps(['modelValue','label'])
+defineEmits(['update:modelValue'])
 </script>

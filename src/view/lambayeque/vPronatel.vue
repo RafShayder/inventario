@@ -1,16 +1,22 @@
 <template>
     <v-main>
-        <v-card>Pronatel</v-card>
         <v-container>
-            <cFiltros></cFiltros>
+            <h1 class="text-blue">Pronatel</h1>
+        </v-container>
+        <v-container fluid>
+            <wFileVue></wFileVue>
         </v-container>
     </v-main>
 </template>
+
+  
 <script>
-import cFiltros from '../../components/cFiltros.vue';
+import wFileVue from '../../assets/widget/wFile.vue';
+
 export default {
     components: {
-        cFiltros
-    }
-}
+        wFileVue,
+    },
+};
 </script>
+  

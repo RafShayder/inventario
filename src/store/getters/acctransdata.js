@@ -32,13 +32,17 @@ export const inventario = defineStore('inventario', {
         datos: null
     }),
     actions: {
-         async getdata() {
+         async getdata(id) {
             try {
                 const userStore = useAuthStore();
                 const token = userStore.token;
                 this.datos = await api.getdataacctrans({
                     headers: {
-                        'Authorization': token
+                        'Authorization': token,
+                        
+                    },
+                    params: {
+                        id: id
                     }
                 });
             } catch (error) {
@@ -48,3 +52,5 @@ export const inventario = defineStore('inventario', {
         },
     },
 });
+
+export const filtros={}

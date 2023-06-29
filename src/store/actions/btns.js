@@ -14,8 +14,8 @@ export const sidebardata=defineStore('sidebardata', () => {
     lambayeque: {
       icon: 'mdi-apps-box',
       data:[
-        {titulo:'Acceso', name: 'acctrans',path:'LACC', icon: 'mdi-access-point-check'},
-        {titulo:'Transporte', name: 'acctrans',path:'LTRX', icon: 'mdi-cable-data'},
+        {titulo:'Acceso', name: 'acctrans',path:'LAC', icon: 'mdi-access-point-check'},
+        {titulo:'Transporte', name: 'acctrans',path:'LTX', icon: 'mdi-cable-data'},
         {titulo:'Pronatel', name: 'pronatel',path:'', icon: 'mdi-domain'},
         {titulo:'Trabajo a demanda', name: 'tdemanda',path:'', icon: 'mdi-account-hard-hat'},
       ],

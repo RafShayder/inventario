@@ -37,7 +37,7 @@ const routes = [{
         },
         {
             name: 'acctrans',
-            path: 'acctrans/:id?',
+            path: 'acctrans/:id',
             //component: () => import('./view/lambayeque/vAcctrans.vue'),
             component: () => import('./view/lambayeque/vInventario.vue'),
         },

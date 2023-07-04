@@ -1,7 +1,7 @@
 <template>
     <v-menu>
         <template v-slot:activator="{ props }">
-            <v-btn class="text-white" icon="mdi-dots-vertical" v-bind="props"></v-btn>
+            <v-btn  icon="mdi-dots-vertical" v-bind="props"></v-btn>
         </template>
         <v-list>
             <v-list-item v-for="(item, i) in items" :key="i">

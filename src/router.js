@@ -24,6 +24,7 @@ const routes = [{
             name: 'home',
             path: 'home',
             component: () => import('./view/vHome.vue'),
+            
         },
         {
             name: 'inventario',
@@ -36,10 +37,11 @@ const routes = [{
             component: () => import('./view/vAlmacen.vue'),
         },
         {
-            name: 'acctrans',
-            path: 'acctrans/:id',
+            name: 'Inventario',
+            path: 'inventario/:id',
             //component: () => import('./view/lambayeque/vAcctrans.vue'),
             component: () => import('./view/lambayeque/vInventario.vue'),
+            replace: true
         },
         {
             name: 'pronatel',

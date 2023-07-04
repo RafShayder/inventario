@@ -1,38 +1,26 @@
 <template>
-    <v-container>
-        <v-row no-gutters>
-            <v-col cols="12" sm="3" class="ma-2">
-                <v-text-field append-inner-icon="mdi-magnify" label="Equipo" variant="outlined" color="primary" clearable
-                    v-model="search.qryEquipo" @click:clear="searchEquipo"
-                    @click:append-inner="searchEquipo"></v-text-field>
-            </v-col>
-            <v-col cols="12" sm="3" class="ma-2">
-                <v-text-field append-inner-icon="mdi-magnify" label="Nombre" variant="outlined" color="primary" clearable
-                    v-model="search.qryNombre" @click:append-inner="searchNombre"></v-text-field>
-            </v-col>
-            <v-col cols="12" sm="3" class="ma-2">
-                <v-text-field append-inner-icon="mdi-magnify" label="Sitio" variant="outlined" color="primary" clearable
-                    v-model="search.qrySitio" @click:append-inner="searchSitio"></v-text-field>
-            </v-col>
-        </v-row>
-    </v-container>
+    <div class="filtromin">
+        <v-card class="pa-2 ma-2" elevation="6">
+            <v-text-field hide-details="true" append-inner-icon="mdi-magnify" label="Cod Sitio" variant="plain"
+                density="comfortable" color="light-blue-accent-4" bg-color="white" clearable v-model="search.codsitio"
+                @click:clear="searchCodsitio" @click:append-inner="searchCodsitio"></v-text-field>
+        </v-card>
+        <v-card class="pa-2 ma-2" elevation="6">
+            <v-text-field hide-details="true" append-inner-icon="mdi-magnify" label="Sitio" variant="plain"
+                density="comfortable" color="light-blue-accent-4" bg-color="white" clearable v-model="search.nombresitio"
+                @click:clear="searchNombresitio" @click:append-inner="searchNombresitio"></v-text-field>
+        </v-card>
+        <v-card class="pa-2 ma-2" elevation="6">
+            <v-text-field hide-details="true" append-inner-icon="mdi-magnify" label="Equipo" variant="plain"
+                density="comfortable" color="light-blue-accent-4" bg-color="white" clearable v-model="search.nombreequipo"
+                @click:clear="searchNombreequipo" @click:append-inner="searchNombreequipo"></v-text-field>
+        </v-card>
+    </div>
     <v-data-table class="elevation-4" v-model:items-per-page="itemsPerPage" :headers="data.header" :items="filteredItems">
-        <template v-slot:items="props">
-            <td>{{ props.item.equipo }}</td>
-            <td>{{ props.item.nombre }}</td>
-            <td>{{ props.item.serie }}</td>
-            <td>{{ props.item.color }}</td>
-            <td>{{ props.item.estado }}</td>
-            <td>{{ props.item.cantidad }}</td>
-            <td>{{ props.item.fecha }}</td>
-            <td>{{ props.item.equipamiento }}</td>
-            <td>{{ props.item.modelo }}</td>
-            <td>{{ props.item.codsitio }}</td>
-            <td>{{ props.item.sitio }}</td>
-        </template>
         <template v-slot:[`item.actions`]="{ item }">
-            <v-icon size="small" class="me-2" color="#00C853" icon="mdi-pencil" @click="editItem(item.raw)">
-            </v-icon>
+            <v-icon size="small" class="me-2" color="#2962FF" icon="mdi-clipboard-list" @click="showDetail(item.raw)"></v-icon>
+            <v-icon size="small" class="me-2" color="#FFD600" icon="mdi-pencil" @click="editItem(item.raw)"></v-icon>
+            <v-icon size="small" class="me-2" color="#F50057" icon="mdi-delete" @click="editItem(item.raw)"></v-icon>
         </template>
         <template v-slot:no-results>
             <v-alert :value="true" color="error" icon="warning">
@@ -59,7 +47,15 @@
                 </v-btn>
             </v-card-text>
         </v-card>
-
+    </v-dialog>
+    <v-dialog v-model="statedetail" fullscreen :scrim="false" transition="dialog-bottom-transition">
+        <wDialogDetail :data="datadetail">
+            <template v-slot:btncerrar>
+                <v-btn icon dark @click="statedetail=!statedetail">
+                    <v-icon>mdi-close</v-icon>
+                </v-btn>
+            </template>
+        </wDialogDetail>
     </v-dialog>
 </template>
 <script setup>
@@ -72,23 +68,27 @@ defineProps({
 <script>
 import { VDataTable } from 'vuetify/labs/VDataTable'
 import cEditing from './cEditing.vue';
+import wDialogDetail from '../assets/widget/wDialogDetail.vue';
 export default {
-    components:{
-        cEditing
+    components: {
+        cEditing,
+        wDialogDetail
     },
     data() {
         return {
             dialog: false,
-            itemsPerPage: 50,
+            statedetail:false,
+            datadetail: {},
+            itemsPerPage: 15,
             search: {
-                qryEquipo: "",
-                qryNombre: "",
-                qrySitio: "",
+                codsitio: "",
+                nombresitio: "",
+                nombreequipo: "",
             },
             filterQry: {
-                qryEquipo: "",
-                qryNombre: "",
-                qrySitio: "",
+                codsitio: "",
+                nombresitio: "",
+                nombreequipo: "",
             },
         }
     },
@@ -98,6 +98,9 @@ export default {
         }
     },
     methods: {
+        showDetail: function (item) {
+            this.statedetail=!this.statedetail;
+        },
         editItem(item) {
             this.dialog = true;
             this.editor = Object.assign({}, item)
@@ -105,34 +108,55 @@ export default {
         prueba: function () {
             console.log(this.editor)
         },
-        searchEquipo: function () {
-            if (this.search.qryEquipo == null) {
-                this.search.qryEquipo = ''
+        searchCodsitio: function () {
+            if (this.search.codsitio == null) {
+                this.search.codsitio = ''
             }
-            this.filterQry.qryEquipo = this.search.qryEquipo;
+            this.filterQry.codsitio = this.search.codsitio;
         },
-        searchNombre: function () {
-            if (this.search.qryEquipo == null) {
-                this.search.qryNombre = ''
+        searchNombresitio: function () {
+            if (this.search.nombresitio == null) {
+                this.search.nombresitio = ''
             }
-            this.filterQry.qryNombre = this.search.qryNombre;
+            this.filterQry.nombresitio = this.search.nombresitio;
         },
-        searchSitio: function () {
-            if (this.search.qryEquipo == null) {
-                this.search.qrySitio = ''
+        searchNombreequipo: function () {
+            if (this.search.nombreequipo == null) {
+                this.search.nombreequipo = ''
             }
-            this.filterQry.qrySitio = this.search.qrySitio;
+            this.filterQry.nombreequipo = this.search.nombreequipo;
         },
         filterItems: function (arr, query) {
             return arr.filter(function (item) {
-                let equipo = item.equipo.toLowerCase().includes(query.qryEquipo.toLowerCase());
-                let nombre = item.nombre.toLowerCase().includes(query.qryNombre.toLowerCase());
-                let sitio = item.sitio.toLowerCase().includes(query.qrySitio.toLowerCase());
-                return (equipo && nombre && sitio);
+                let codsitio = item.codsitio.toLowerCase().includes(query.codsitio.toLowerCase());
+                let nombresitio = item.nombresitio.toLowerCase().includes(query.nombresitio.toLowerCase());
+                let nombreequipo = item.nombreequipo.toLowerCase().includes(query.nombreequipo.toLowerCase());
+                return (codsitio && nombresitio && nombreequipo);
             })
         },
-
     },
-
 }
 </script>
+
+<style scoped>
+.filtromin {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.v-card {
+    width: 250px;
+}
+
+/*Una vez alcance los 1490px realizas el cambio*/
+@media (max-width: 520px) {
+    .filtromin {
+        display: block;
+    }
+
+    .v-card {
+        width: 98%;
+    }
+}
+</style>

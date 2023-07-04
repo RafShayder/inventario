@@ -16,8 +16,8 @@
                         v-model="search.qrySitio" @click:append-inner="searchSitio"></v-text-field>
                 </v-col>
             </v-row>
-
         </v-container>
+
         <v-container v-if="!loading" style="height: 80vh;">
             <v-sheet max-width="600" rounded="lg" width="100%" class="pa-4 text-center mx-auto">
                 <v-progress-circular :size="80" :width="8" color="pink" indeterminate></v-progress-circular>

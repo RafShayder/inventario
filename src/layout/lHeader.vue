@@ -1,7 +1,7 @@
 <template>
-    <v-app-bar  elevation="15" class="gradienteblue">
-      <v-app-bar-nav-icon @click="store.cambiarEstado" :class="colorlineas"></v-app-bar-nav-icon>
-      <v-app-bar-title :class="colorlineas">Telefonica</v-app-bar-title>
+    <v-app-bar  elevation="1" class="gradienteblue">
+      <v-app-bar-nav-icon @click="store.cambiarEstado" class="colorlineas"></v-app-bar-nav-icon>
+      <v-app-bar-title class="colorlineas">Telefonica</v-app-bar-title>
       <template v-slot:append>
         <profile :class="color"></profile>
         <optpuntos></optpuntos>
@@ -14,7 +14,6 @@
   export default {
     data: () => ({
       color: 'text-indigo-accent-4 font-weight-medium',
-      colorlineas: 'text-white'
     }
     ),
     components: {
@@ -30,10 +29,12 @@
   </script>
   <style scoped>
   .gradienteblue{
+    color: #0091EA;
     margin-bottom: 10px;
-    background: #ffffff;
+    background: #F5F8FA;
+    /*
     background-image: linear-gradient(260deg, #c24bee 0, #a243f0 25%, #783cf2 50%, #3239f4 75%, #0038f5 100%);
-
+*/
   }
   </style>
     

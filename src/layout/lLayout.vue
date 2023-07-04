@@ -1,7 +1,7 @@
 <template>
     <lSidebar></lSidebar>
     <lHeader></lHeader>
-    <v-container fluid >
+    <v-container fluid class="fondo">
       <router-view />
     </v-container>
     <lFooter></lFooter>
@@ -20,3 +20,8 @@ export default {
   }
 }
 </script>
+<style scoped>
+.fondo{
+  background-color:#F5F8FA;
+}
+</style>

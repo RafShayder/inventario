@@ -10,11 +10,11 @@
             </template>
         </v-card>
         <v-form fast-fail>
-            <v-text-field class="mb-6" variant="solo" v-model="usuario" label="Usuario" clearable
+            <v-text-field class="mb-6" variant="solo" v-model="usuario" label="Usuario" 
                 :rules="[rules.required]"></v-text-field>
             <v-text-field class="mb-6" :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
                 :type="visible ? 'text' : 'password'" label="Contraseña" prepend-inner-icon="mdi-lock-check" variant="solo"
-                @click:append-inner="visible = !visible" v-model="pass" clearable :rules="[rules.required]">
+                @click:append-inner="visible = !visible" v-model="pass"  :rules="[rules.required]">
             </v-text-field>
             <v-btn type="submit" color="blue" block class="mb-8" size="large" :disabled="loading"
                 @click="login()">Entrar</v-btn>

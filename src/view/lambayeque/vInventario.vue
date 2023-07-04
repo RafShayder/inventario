@@ -1,5 +1,13 @@
 <template>
     <v-main>
+        <div class="text-center " style="background-color:white">
+           <h1 class="font-weight-regular text-light-blue-accent-4"> {{ titulo }}</h1>
+        </div>
+        <v-breadcrumbs :items="[this.$route.name, this.$route.params.id ]" color="light-blue-accent-4" bg-color="white">
+            <template v-slot:divider>
+                <v-icon icon="mdi-chevron-right"></v-icon>
+            </template>
+        </v-breadcrumbs>
         <v-container v-if="!loading" style="height: 80vh;">
             <v-sheet max-width="600" rounded="lg" width="100%" class="pa-4 text-center mx-auto">
                 <v-progress-circular :size="80" :width="8" color="pink" indeterminate></v-progress-circular>
@@ -19,6 +27,7 @@ export default {
     },
     data() {
         return {
+            titulo:'',
             loading: false,
             datos: {
                 data: [],
@@ -28,18 +37,17 @@ export default {
                         sortable: false,
                         key: 'name',
                     },
-                    { title: 'equipo', align: 'end', key: 'equipo' },
-                    { title: 'nombre', align: 'end', key: 'nombre' },
-                    { title: 'Serie', align: 'end', key: 'serie' },
-                    { title: 'Color', align: 'end', key: 'color' },
-                    { title: 'Estado', align: 'end', key: 'estado' },
-                    { title: 'cantidad', align: 'end', key: 'cantidad' },
-                    { title: 'Fecha', align: 'end', key: 'fecha' },
-                    { title: 'Equipamiento', align: 'end', key: 'equipamiento' },
-                    { title: 'Modelo', align: 'end', key: 'modelo' },
-                    { title: 'cod Sitio', align: 'end', key: 'codsitio' },
-                    { title: 'sitio', align: 'end', key: 'sitio' },
-                    { title: 'Actions', align: 'end', key: 'actions', sortable: false }
+                    { title: 'CodSitio', align: 'start', key: 'codsitio' },
+                    { title: 'Sitio', align: 'start', key: 'nombresitio' },
+                    { title: 'Capa', align: 'start', key: 'nombrecapa' },
+                    { title: 'Equipa', align: 'start', key: 'nombreequipamiento' },
+                    { title: 'Equipo', align: 'start', key: 'nombreequipo' },
+                    { title: 'Modelo', align: 'start', key: 'modelo' },
+                    { title: 'Cant', align: 'start', key: 'cantidad' },
+                    { title: 'Estado', align: 'start', key: 'estado' },
+                    { title: 'Color', align: 'start', key: 'color' },
+                    { title: 'Serie', align: 'start', key: 'serie' },
+                    { title: 'Actions', align: 'start', key: 'actions', sortable: false }
                 ],
             },
         }
@@ -54,13 +62,15 @@ export default {
     },
     methods: {
         async realizarPeticion() {
-            this.loading=false;
+            this.loading = false;
             const m = inventario();
             const id = this.$route.params.id;
             await m.getdata(id)
             this.datos.data = m.datos.data.data
             this.loading = m.loading
+            this.titulo=m.datos.data.titulo
         }
-    }
+    },
+
 }
 </script>

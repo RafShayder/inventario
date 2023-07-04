@@ -1,5 +1,5 @@
 <template>
-    <v-navigation-drawer v-model="store.valor" fixed temporary width="300">
+    <v-navigation-drawer v-model="store.valor"  width="300">
         <v-container>
             <v-icon icon="mdi-collage" class='colortexto'></v-icon>
             <span class=" mx-2 font-weight-black colortexto"> OPCIONES</span>
@@ -28,6 +28,11 @@
 <script>
 export default {
     name: 'lSidebar',
+    data(){
+        return {
+            valortemp:'temporary'
+        }
+    }
 };
 </script>
 <script setup>
@@ -40,7 +45,6 @@ const items2 = sidebardata().data;
     display: flex;
     justify-content: center;
 }
-
 .lgout {
     position: absolute;
     bottom: 0;
@@ -48,6 +52,6 @@ const items2 = sidebardata().data;
 }
 
 .colortexto {
-    color: #6A68E5;
+    color: #0091EA;
 }
 </style>

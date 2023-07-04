@@ -1,8 +1,8 @@
 <template>
             <v-card>
-                <v-toolbar dark color="primary">
+                <v-toolbar dark color="#0091EA">
                     <slot name="btncerrar"></slot>
-                    <v-toolbar-title>Detalles</v-toolbar-title>
+                    <v-toolbar-title class="text-white">Detalles</v-toolbar-title>
                     <v-spacer></v-spacer>
                 </v-toolbar>
                 <v-card>

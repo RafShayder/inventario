@@ -1,7 +1,8 @@
 <template>
     <v-navigation-drawer v-model="store.valor"  width="300">
         <v-container>
-            <v-icon icon="mdi-collage" class='colortexto'></v-icon>
+            <v-icon icon="mdi-format-list-checks" class='colortexto'></v-icon>
+            
             <span class=" mx-2 font-weight-black colortexto"> OPCIONES</span>
         </v-container>
         <v-divider class="text-blue"></v-divider>

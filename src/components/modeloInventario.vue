@@ -51,7 +51,7 @@
     <v-dialog v-model="statedetail" fullscreen :scrim="false" transition="dialog-bottom-transition">
         <wDialogDetail :data="datadetail">
             <template v-slot:btncerrar>
-                <v-btn icon dark @click="statedetail=!statedetail">
+                <v-btn icon dark @click="statedetail=!statedetail" color="white">
                     <v-icon>mdi-close</v-icon>
                 </v-btn>
             </template>
@@ -100,6 +100,7 @@ export default {
     methods: {
         showDetail: function (item) {
             this.statedetail=!this.statedetail;
+            this.datadetail=item
         },
         editItem(item) {
             this.dialog = true;
@@ -145,7 +146,7 @@ export default {
     margin-bottom: 15px;
 }
 
-.v-card {
+.filtromin>.v-card {
     width: 250px;
 }
 
@@ -155,7 +156,7 @@ export default {
         display: block;
     }
 
-    .v-card {
+    .filtromin>.v-card {
         width: 98%;
     }
 }

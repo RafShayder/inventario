@@ -26,11 +26,7 @@ const routes = [{
             component: () => import('./view/vHome.vue'),
             
         },
-        {
-            name: 'inventario',
-            path: 'inventario',
-            component: () => import('./view/vInventario.vue'),
-        },
+        
         {
             name: 'almacen',
             path: 'almacen',

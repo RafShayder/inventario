@@ -5,24 +5,35 @@
                     <v-toolbar-title class="text-white">Detalles</v-toolbar-title>
                     <v-spacer></v-spacer>
                 </v-toolbar>
-                <v-card>
-                    Buenas tardes
-                </v-card>
+                <v-container>
+                    {{ data }}
+                </v-container>
+                <v-container>
+                    <mapsPunto></mapsPunto>
+                </v-container>
             </v-card>
 </template>
 
 <script setup>
 defineProps({
     data: {
-
+        required: true
     }
 })
+</script>
+<script>
+import mapsPunto from './mapsPunto.vue';
+export default {
+    components:{
+        mapsPunto
+    }
+}
 </script>
 
 <style scoped>
 .dialog-bottom-transition-enter-active,
 .dialog-bottom-transition-leave-active {
-    transition: transform .2s ease-in-out;
+    transition: transform .3s ease-in-out;
 }
 </style>
 

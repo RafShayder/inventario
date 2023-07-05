@@ -47,7 +47,7 @@ export default {
                     { title: 'Estado', align: 'start', key: 'estado' },
                     { title: 'Color', align: 'start', key: 'color' },
                     { title: 'Serie', align: 'start', key: 'serie' },
-                    { title: 'Actions', align: 'start', key: 'actions', sortable: false }
+                    { title: 'Actions', align: 'center', key: 'actions', sortable: false }
                 ],
             },
         }
@@ -69,6 +69,7 @@ export default {
             this.datos.data = m.datos.data.data
             this.loading = m.loading
             this.titulo=m.datos.data.titulo
+    
         }
     },
 

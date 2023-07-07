@@ -30,6 +30,7 @@ export const useAuthStore = defineStore('auth', {
                 this.alert.titulo = "Autenticado";
                 this.alert.cuerpo = "Bienvenido";
                 // Obtener la información del usuario
+                router.push('/');
                 await this.getUserInfo();
             } catch (error) {
                 // Manejar el error de autenticación
@@ -45,7 +46,6 @@ export const useAuthStore = defineStore('auth', {
             try {
                 // Agregar el token a los encabezados de autorización
                 //api.defaults.headers.common['Authorization'] = `${this.token}`;
-
                 const response = (await api.getUserInfo({
                     headers: {
                         'Authorization': this.token
@@ -54,8 +54,9 @@ export const useAuthStore = defineStore('auth', {
 
                 // Realizar acciones necesarias con la información del usuario
                 this.dataperfil = response.data;
-                router.push('/');
             } catch (error) {
+                router.push('/login');
+                localStorage.removeItem('token');
                 // Manejar el error al obtener la información del usuario
                 console.error('Error al obtener la información del usuario:', error);
             }
@@ -67,6 +68,6 @@ export const useAuthStore = defineStore('auth', {
             localStorage.removeItem('token');
             // Establecer el estado de autenticación como falso
             this.isAuthenticated = false;
-        }
+        },
     }
 });

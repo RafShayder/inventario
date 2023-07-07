@@ -2,16 +2,17 @@
     <v-card>
         <v-toolbar dark color="amber-accent-4">
             <slot name="btncerrar"></slot>
-            <v-toolbar-title class="text-white text-h4">{{ data.nombreequipo }}</v-toolbar-title>
+            <v-toolbar-title class="text-white text-h4">{{ data.nombreequipo }}
+            </v-toolbar-title>
         </v-toolbar>
         <v-container fluid>
-            <div class="text-h4">
+            <div class="text-h6">
                 <span class="text-blue-darken-4">Modelo : </span> <span class="text-light-blue-accent-4">
                     {{ data.modelo }}</span>
             </div>
         </v-container>
         <div>
-            <div class="py-10 flexd">
+            <div class="py-2 flexd">
                 <!--Sitio-->
                 <v-card height="auto" max-height="500px" width="180px" max-width="220px" class="rounded-xl mx-auto "
                     :class="color.sitio.bg" elevation="14">

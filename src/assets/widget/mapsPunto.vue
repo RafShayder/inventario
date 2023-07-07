@@ -3,12 +3,12 @@
   <span> <strong>Latitud: {{ latitud }} , Longitud: {{ longitud }}</strong></span> <v-btn prepend-icon="mdi-google-maps" :href="link" target="_blank" elevation="14" class="ma-4" color="blue">Ver en google maps</v-btn>
 </template>
 
+
 <script setup>
 defineProps({
   latitud: Number,
   longitud: Number,
 })
-
 </script>
 
 <script>
@@ -21,6 +21,9 @@ import Point from 'ol/geom/Point';
 import { fromLonLat } from 'ol/proj';
 import { Vector as VectorLayer } from 'ol/layer';
 import { Vector as VectorSource } from 'ol/source';
+import { Icon, Style } from 'ol/style';
+import gps from  '../images/gps3.png';
+
 export default {
   data() {
     return {
@@ -28,21 +31,32 @@ export default {
     }
   },
   mounted() {
-  
-    const point = new Point(fromLonLat([this.longitud, this.latitud]));
-    this.link = "https://www.google.com/maps?q=" + this.latitud + "," + this.longitud;
+    const coordinates = fromLonLat([this.longitud, this.latitud]);
+    this.link = `https://www.google.com/maps?q=${this.latitud},${this.longitud}`;
+    
+    const point = new Point(coordinates);
     const pointFeature = new Feature({
       geometry: point
     });
-
+    
+    const iconStyle = new Style({
+      image: new Icon({
+        src: gps, // Ruta a la imagen del punto rojo
+        imgSize: [40, 40], // Tamaño de la imagen del punto rojo
+        anchor: [0.5, 1] // Punto de anclaje para la imagen del punto rojo
+      })
+    });
+    
+    pointFeature.setStyle(iconStyle);
+    
     const vectorSource = new VectorSource({
       features: [pointFeature]
     });
-
+    
     const vectorLayer = new VectorLayer({
       source: vectorSource
     });
-
+    
     const map = new Map({
       target: 'map',
       layers: [
@@ -52,12 +66,13 @@ export default {
         vectorLayer
       ],
       view: new View({
-        center: fromLonLat([this.longitud, this.latitud]),
+        center: coordinates,
         zoom: 15
       })
     });
   }
 };
+
 </script>
 
 <style scoped>

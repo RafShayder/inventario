@@ -76,11 +76,21 @@ export const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
     const authStore = useAuthStore();
+    
+    if(localStorage.getItem('token')!=null){
+        authStore.isAuthenticated=true;
+        authStore.token=localStorage.getItem('token');
+        await authStore.getUserInfo();
+    }
+    
+
     if (to.matched.some((route) => route.meta.requiresAuth)) {
         // Verificar si el usuario está autenticado
         if (!authStore.isAuthenticated) {
+            console.log(localStorage.getItem('token'))
             // Redirigir al inicio de sesión si no está autenticado
             next('/login');
+            
         } else {
             next();
             // Verificar la validez del token JWT

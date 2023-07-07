@@ -38,7 +38,7 @@ export const inventario = defineStore('inventario', {
                 const token = userStore.token;
                 this.datos = await api.getdataacctrans({
                     headers: {
-                        'Authorization': token,
+                        'Authorization':userStore.token,
                         
                     },
                     params: {
@@ -63,6 +63,7 @@ export const getestados = defineStore('getestados', {
             try {
                 const userStore = useAuthStore();
                 const token = userStore.token;
+                console.log(token)
                 this.datos = await api.getestados({
                     headers: {
                         'Authorization': token,

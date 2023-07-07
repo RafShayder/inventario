@@ -68,7 +68,7 @@ export default {
             const m = inventario();
             const id = this.$route.params.id;
             await m.getdata(id)
-            this.datos.data = m.datos.data.data
+            this.datos.data = await m.datos.data.data
             this.loading = m.loading
             this.titulo = m.datos.data.titulo
 

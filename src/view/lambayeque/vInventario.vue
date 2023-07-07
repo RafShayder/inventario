@@ -1,13 +1,15 @@
 <template>
     <v-main>
-        <div class="text-center " style="background-color:white">
-           <h1 class="font-weight-regular text-light-blue-accent-4"> {{ titulo }}</h1>
+        <div class="rounded-xl bg-white">
+            <div class="text-center">
+                <h1 class="font-weight-regular text-light-blue-accent-4"> {{ titulo }}</h1>
+            </div>
+            <v-breadcrumbs :items="[this.$route.name, this.$route.params.id]" color="light-blue-accent-4" >
+                <template v-slot:divider>
+                    <v-icon icon="mdi-chevron-right"></v-icon>
+                </template>
+            </v-breadcrumbs>
         </div>
-        <v-breadcrumbs :items="[this.$route.name, this.$route.params.id ]" color="light-blue-accent-4" bg-color="white">
-            <template v-slot:divider>
-                <v-icon icon="mdi-chevron-right"></v-icon>
-            </template>
-        </v-breadcrumbs>
         <v-container v-if="!loading" style="height: 80vh;">
             <v-sheet max-width="600" rounded="lg" width="100%" class="pa-4 text-center mx-auto">
                 <v-progress-circular :size="80" :width="8" color="pink" indeterminate></v-progress-circular>
@@ -27,7 +29,7 @@ export default {
     },
     data() {
         return {
-            titulo:'',
+            titulo: '',
             loading: false,
             datos: {
                 data: [],
@@ -68,8 +70,8 @@ export default {
             await m.getdata(id)
             this.datos.data = m.datos.data.data
             this.loading = m.loading
-            this.titulo=m.datos.data.titulo
-    
+            this.titulo = m.datos.data.titulo
+
         }
     },
 

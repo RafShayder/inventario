@@ -12,4 +12,7 @@ export default {
     getdataacctrans(config) {
         return apiClient.get('api/acctrans', config);
     },
+    getestados(config) {
+        return apiClient.get('api/acctrans', config);
+    },
 };

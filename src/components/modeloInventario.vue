@@ -16,9 +16,10 @@
                 @click:clear="searchNombreequipo" @click:append-inner="searchNombreequipo"></v-text-field>
         </v-card>
     </div>
-    <v-data-table class="elevation-4" v-model:items-per-page="itemsPerPage" :headers="data.header" :items="filteredItems">
+    <v-data-table class="elevation-14" v-model:items-per-page="itemsPerPage" :headers="data.header" :items="filteredItems">
         <template v-slot:[`item.actions`]="{ item }">
-            <v-icon size="small" class="me-2" color="#2962FF" icon="mdi-clipboard-list" @click="showDetail(item.raw)"></v-icon>
+            <v-icon size="small" class="me-2" color="#2962FF" icon="mdi-clipboard-list"
+                @click="showDetail(item.raw)"></v-icon>
             <v-icon size="small" class="me-2" color="#FFD600" icon="mdi-pencil" @click="editItem(item.raw)"></v-icon>
             <v-icon size="small" class="me-2" color="#F50057" icon="mdi-delete" @click="editItem(item.raw)"></v-icon>
         </template>
@@ -31,12 +32,73 @@
 
     <v-dialog v-model="dialog" max-width="1000">
         <v-card class="rounded-xl">
+
             <v-card-text>
+                <div class="text-h5 text-blue my-2 text-center">
+                    <span> Equipo: {{ editor.nombreequipo }}</span>
+                </div>
                 <v-container fluid>
                     <v-row no-gutters>
+                        <!--sitio-->
+                        <v-card height="auto" max-height="500px" width="180px" max-width="220px" class="rounded-xl mx-auto "
+                            :class="color.sitio.bg" elevation="14">
+                            <v-row class="bg-white">
+                                <div class="mx-auto mt-5">
+                                    <v-icon :color="color.sitio.text" class="text-h1" :icon="color.sitio.icono"></v-icon>
+                                </div>
+                            </v-row>
+                            <v-row class="px-6 pb-4">
+                                <div class="mx-auto mt-5">
+                                    <div>
+                                        Sitio: {{ editor.nombresitio }} | {{ editor.codsitio }}
+                                    </div>
+                                    <v-divider></v-divider>
+                                    <div>
+                                        Dep: {{ editor.departamento }}
+                                    </div>
+                                    <div>
+                                        Prov: {{ editor.provincia }}
+                                    </div>
+                                    <div>
+                                        Dist: {{ editor.distrito }}
+                                    </div>
+                                </div>
+                            </v-row>
+                        </v-card>
+                        <!--capa-->
+                        <v-card height="auto" max-height="500px" width="180px" max-width="220px" class="rounded-xl mx-auto "
+                            :class="color.capa.bg" elevation="14">
+                            <v-row class="bg-white">
+                                <div class="mx-auto mt-5">
+                                    <v-icon :color="color.capa.text" class="text-h1" :icon="color.capa.icono"></v-icon>
+                                </div>
+                            </v-row>
+                            <v-row class="px-6 pb-4">
+                                <div class="mx-auto mt-5">
+                                    <div>
+                                        Capa: {{ editor.nombrecapa }}
+                                    </div>
+                                    <v-divider></v-divider>
+                                    <div>
+                                        Eq: {{ editor.nombreequipamiento }}
+                                    </div>
+                                    <div>
+                                        Mode: {{ editor.modelo }}
+                                    </div>
+                                </div>
+                            </v-row>
+                        </v-card>
+                        
+                        <!--
                         <template v-for="(v, key) in editor" v-bind:key="key">
                             <cEditing v-model="editor[key]" :label="key"></cEditing>
                         </template>
+                        -->
+                    </v-row>
+                    <v-row>
+                        <v-select label="Estado"  v-model="nuevoestado"
+                            :items="['BUENO', 'REGULAR', 'NO OPERATIVO',]"
+                            variant="solo"></v-select>
                     </v-row>
                 </v-container>
                 <v-btn @click="prueba" color="blue" class="ma-1">
@@ -48,10 +110,10 @@
             </v-card-text>
         </v-card>
     </v-dialog>
-    <v-dialog v-model="statedetail" fullscreen :scrim="false" transition="dialog-bottom-transition">
+    <v-dialog v-model=statedetail  fullscreen :scrim="false" transition="dialog-bottom-transition">
         <wDialogDetail :data="datadetail">
             <template v-slot:btncerrar>
-                <v-btn icon dark @click="statedetail=!statedetail" color="white">
+                <v-btn icon dark @click="statedetail = !statedetail" color="white">
                     <v-icon>mdi-close</v-icon>
                 </v-btn>
             </template>
@@ -64,6 +126,31 @@ defineProps({
         required: true
     }
 })
+
+const color = {
+    sitio: {
+        icono: 'mdi-domain',
+        bg: 'bg-light-blue-accent-4',
+        text: 'light-blue-accent-4'
+    },
+    capa: {
+        icono: 'mdi-washing-machine',
+        bg: 'bg-pink-accent-4',
+        text: 'pink-accent-4'
+    },
+    estado: {
+        icono: 'mdi-check-underline-circle',
+        bg: 'bg-green-darken-2',
+        text: 'green-darken-2'
+    },
+    cantidad: {
+        icono: 'mdi-numeric-',
+        bg: 'bg-amber-darken-4',
+        text: 'amber-darken-4'
+    },
+
+};
+
 </script>
 <script>
 import { VDataTable } from 'vuetify/labs/VDataTable'
@@ -77,7 +164,7 @@ export default {
     data() {
         return {
             dialog: false,
-            statedetail:false,
+            statedetail: false,
             datadetail: {},
             itemsPerPage: 15,
             search: {
@@ -90,6 +177,7 @@ export default {
                 nombresitio: "",
                 nombreequipo: "",
             },
+            nuevoestado:''
         }
     },
     computed: {
@@ -99,12 +187,13 @@ export default {
     },
     methods: {
         showDetail: function (item) {
-            this.statedetail=!this.statedetail;
-            this.datadetail=item
+            this.statedetail = !this.statedetail;
+            this.datadetail = item
         },
         editItem(item) {
             this.dialog = true;
             this.editor = Object.assign({}, item)
+
         },
         prueba: function () {
             console.log(this.editor)

@@ -1,6 +1,15 @@
 <template>
-  <div id="map" style="width: 100%; height: 400px;"></div>
+  <div class="elevation-20 pa-2 rounded-xl" id="map" style="width: 100%; height: 100%;"></div>
+  <span> <strong>Latitud: {{ latitud }} , Longitud: {{ longitud }}</strong></span> <v-btn prepend-icon="mdi-google-maps" :href="link" target="_blank" elevation="14" class="ma-4" color="blue">Ver en google maps</v-btn>
 </template>
+
+<script setup>
+defineProps({
+  latitud: Number,
+  longitud: Number,
+})
+
+</script>
 
 <script>
 import 'ol/ol.css';
@@ -12,14 +21,16 @@ import Point from 'ol/geom/Point';
 import { fromLonLat } from 'ol/proj';
 import { Vector as VectorLayer } from 'ol/layer';
 import { Vector as VectorSource } from 'ol/source';
-import gps from '../images/gps.png';
 export default {
+  data() {
+    return {
+      link: '',
+    }
+  },
   mounted() {
-    const lon = -77.084152 ;
-    const lat = -11.989350;
-
-    const point = new Point(fromLonLat([lon, lat]));
-    
+  
+    const point = new Point(fromLonLat([this.longitud, this.latitud]));
+    this.link = "https://www.google.com/maps?q=" + this.latitud + "," + this.longitud;
     const pointFeature = new Feature({
       geometry: point
     });
@@ -41,8 +52,8 @@ export default {
         vectorLayer
       ],
       view: new View({
-        center: fromLonLat([lon, lat]),
-        zoom: 16
+        center: fromLonLat([this.longitud, this.latitud]),
+        zoom: 15
       })
     });
   }

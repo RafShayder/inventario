@@ -53,4 +53,28 @@ export const inventario = defineStore('inventario', {
     },
 });
 
-export const filtros={}
+export const getestados = defineStore('getestados', {
+    state: () => ({
+        token: null,
+        datos: null
+    }),
+    actions: {
+         async getdata(id) {
+            try {
+                const userStore = useAuthStore();
+                const token = userStore.token;
+                this.datos = await api.getestados({
+                    headers: {
+                        'Authorization': token,
+                    },
+                    params: {
+                        id: id
+                    }
+                });
+            } catch (error) {
+                return error
+            }
+            this.loading = true;
+        },
+    },
+});
